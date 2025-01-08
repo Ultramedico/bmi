@@ -1,3 +1,7 @@
 flask
-flask-cors
-requests
+flask_cors
+
+pymongo
+feedparser
+google.generativeai
+transfomer
