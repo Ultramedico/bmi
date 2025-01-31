@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.Ai_Models.textGen import generate_text
 from app.database import get_db 
-from app.rss.RssFeed import fetch_and_store_rss,delete_rss_articles_by_domain
+from app.rss.RssFeed import fetch_and_store_rss , delete_rss_articles_by_domain
 api = Blueprint("api", __name__)
 
 from app.rss.RssFeed import add_images_to_data , remove_images_from_data
