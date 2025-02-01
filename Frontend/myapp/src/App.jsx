@@ -6,11 +6,13 @@ import Notification from './components/Notification/notification';
 function App() {
   return (
     <Router>
+      <Notification />
       <Routes>
+      
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-      <Notification />
+    
     </Router>
   );
 }

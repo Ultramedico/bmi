@@ -3,7 +3,8 @@ import rssReducer from './RssSlice';
 import notificationReducer from './notificationSlice';
 export default configureStore({
   reducer: {
+    notification: notificationReducer,
     rss: rssReducer,
-    notification: notificationReducer
+  
   }
 });
