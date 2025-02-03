@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRssFeed } from '../../store/RssSlice';
 
-
+import { fetchArticles } from '../../store/articlesSlice';
+import Table from '../Table/table';
 const Dashboard = () => {
     const [url, setUrl] = useState('');
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.rss);
-  
+    const { loading: articlesLoading, data: articles } = useSelector((state) => state.articles);
     const handleSubmit = (e) => {
       e.preventDefault();
       if (!url) return;
       dispatch(fetchRssFeed(url));
     };
+    useEffect(() => {
+        dispatch(fetchArticles());
+      }, [dispatch]);
+      const tableHeaders = [
+        { key: 'title', label: 'Title' },
+        { key: 'description', label: 'Summary' }, 
+        { key: 'published', label: 'Published Date' },
+        { key: 'link', label: 'Source' }
+      ];
+   
 
+    
   return (
     <div className="dashboard-container bg-gray-100 min-h-screen p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">RSS Feed Fetcher</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">BMI</h1>
       
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      <h1 className="text-2xl font-light text-gray-800 mb-6">RSS Feed Fetcher</h1>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-semibold mb-2">
             RSS Feed URL
@@ -47,6 +60,16 @@ const Dashboard = () => {
       </form>
    
       {/* Add feed display section here */}
+
+       {/* Articles Table */}
+       <div className="max-w-6xl mx-auto">
+        <h2 className="text-xl font-semibold mb-4">Latest Articles</h2>
+        <Table 
+          headers={tableHeaders}
+          data={Array.isArray(articles) ? articles : []} 
+          loading={articlesLoading}
+        />
+      </div>
     </div>
   );
 };
